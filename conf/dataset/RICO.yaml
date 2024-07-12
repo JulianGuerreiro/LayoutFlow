@@ -1,0 +1,20 @@
+_target_: torch.utils.data.DataLoader
+
+dataset:
+  _target_: src.datamodule.RICO.RICO
+  data_path: ./datasets/rico
+  num_cat: 26
+  lex_order: False
+  permute_elements: False
+
+batch_size: 512
+num_workers: 12
+pin_memory: True
+persistent_workers: True
+shuffle: True
+drop_last: False
+collate_fn:
+  _target_: src.datamodule.RICO.collate_fn
+  _partial_: true
+  max_len: ${data.max_len}
+  format: ${data.format}

@@ -1,0 +1,43 @@
+# @package _global_
+
+data:
+  max_len: 20
+  format: xywh
+
+model:
+  _target_: src.models.LayoutDMx.LayoutDMx
+  optimizer:
+    _partial_: true
+    _target_: torch.optim.AdamW
+    lr: 0.0005
+  scheduler: reduce_on_plateau
+  backbone_model:
+    _target_: src.models.backbone.layoutdm_backbone.LayoutDMBackbone
+    latent_dim: 128
+    tr_enc_only: True
+    d_model: 512
+    nhead: 8
+    num_layers: 4
+    dropout: 0.1
+    use_pos_enc: False
+    num_cat: ${dataset.dataset.num_cat}
+    attr_encoding: AnalogBit
+    seq_type: stacked
+  sampler:
+    _target_: src.utils.distribution_sampler.DistributionSampler
+    distribution: gaussian
+    sample_padding: False
+    out_dim: 7
+  DM_model: 
+    _target_: diffusers.schedulers.DDIMScheduler
+    # _target_: diffusers.schedulers.DDPMScheduler
+    # sampling: DDPM
+  data_path: ${dataset.dataset.data_path}
+  fid_calc_every_n: ${trainer.check_val_every_n_epoch}
+  num_cat: ${dataset.dataset.num_cat}
+  time_sampling: uniform
+  inference_steps: 100
+  cond: random4
+  attr_encoding: ${model.backbone_model.attr_encoding}
+  add_loss: geom_l1_loss
+  add_loss_weight: 0.2

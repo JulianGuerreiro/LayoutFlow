@@ -1,0 +1,44 @@
+defaults:
+  - _self_
+  - dataset: null
+  - model: null
+  - experiment: ${model}_${dataset}
+
+expname: ???
+test: False
+ckpt_path:
+
+trainer:
+  _target_: lightning.pytorch.Trainer
+  max_epochs: 1000
+  check_val_every_n_epoch: 10
+  logger: 
+    save_dir: ../
+  accelerator: gpu
+  devices: auto
+  strategy: auto
+  num_sanity_val_steps: 2
+
+logger:
+  _target_: lightning.pytorch.loggers.WandbLogger
+  save_dir: ./wandb
+  name: ${experiment.expname}
+  project: LayoutFlow
+## If you don't want to use wandb, comment out this section to use tensorboard:
+# logger:
+#   _target_: lightning.pytorch.loggers.TensorBoardLogger
+#   save_dir: ./tensorboard
+#   name: ${experiment.expname}
+
+checkpoint:
+  _target_: lightning.pytorch.callbacks.ModelCheckpoint
+  dirpath: ./checkpoints/{exp_id}
+  filename: checkpoint-{epoch:02d}-{FID_Layout:.2f}
+  save_top_k: 3
+  monitor: FID_Layout
+  mode: min
+
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .

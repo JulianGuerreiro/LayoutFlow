@@ -1,0 +1,26 @@
+defaults:
+  - _self_
+  - dataset: null
+  - model: null
+  - experiment: ${model}_${dataset}
+
+expname: ???
+checkpoint:
+cond_mask: uncond
+task: uncond
+lex_order: False
+load_bbox:
+ode_solver: euler
+DM_model: 
+  _target_: diffusers.schedulers.DDIMScheduler
+small: False
+device: 0
+calc_miou: False
+multirun: False
+visualize: False
+logdir: ./wandb
+
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .

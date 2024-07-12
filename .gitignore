@@ -1,0 +1,9 @@
+wandb/
+wandb/wandb/
+lightning_logs/
+checkpoints/
+results/
+vis/
+datasets/
+*.pyc
+*.log
