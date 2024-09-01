@@ -44,7 +44,7 @@ A model can be evaluated on various tasks by calculating FID, Alignment, Overlap
 ```
 python3 src/test.py model=[MODEL] dataset=[DATASET] task=[TASK] cond_mask=[MASK] checkpoint=[DIR_TO_CHECKPOINT]
 ```
-- [MODEL]: either `LayoutFlow` or `LayoutDMX`
+- [MODEL]: either `LayoutFlow` or `LayoutDMx`
 - [DATASET]: either `PubLayNet` or `RICO`
 - [TASK]:
     - `uncond` Unconditional Generation (Layout is generated completely from scratch)
@@ -92,4 +92,4 @@ If this work is helpful for your research, please cite our paper:
 ```
 
 ### Acknowledgments
-We want to acknowledge that some parts of our code (mainly some utils functions for the evaluation) is based on code used in the following projects: [LayoutDiffusion](https://github.com/microsoft/LayoutGeneration/tree/main/LayoutDiffusion) and [LayoutDM](https://github.com/CyberAgentAILab/layout-dm?tab=readme-ov-file).
+We want to acknowledge that some parts of our code (mainly some utils functions for the evaluation) are based on code used in the following projects: [LayoutDiffusion](https://github.com/microsoft/LayoutGeneration/tree/main/LayoutDiffusion) and [LayoutDM](https://github.com/CyberAgentAILab/layout-dm?tab=readme-ov-file).
