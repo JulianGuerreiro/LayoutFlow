@@ -101,7 +101,7 @@ class DistributionSampler(nn.Module):
         return x
 
     def sample_frame(self, size):
-        x = torch.zeros((*size, 4))
+        x = torch.zeros((*size, 4), device=sefl.device)
         if len(size) == 1:
             for i, params in enumerate(torch.rand(size[-1], 6)):
                 x[i, :2] = self.get_frame_coord(*params[:3])
