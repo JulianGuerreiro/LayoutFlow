@@ -111,6 +111,9 @@ class DistributionSampler(nn.Module):
                 for j, params in enumerate(torch.rand(size[-1], 6)):
                     x[i, j, :2] = self.get_frame_coord(*params[:3])
                     x[i, j, 2:] = self.get_frame_coord(*params[3:])
+        if self.out_dim > 4:
+            x2 = torch.randn((*size, self.out_dim-4), device=self.device)
+            x = torch.cat([x, x2], dim=-1)
         return x
 
     def get_frame_coord(self, side, t, dt):
